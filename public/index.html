@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NZ Lake Water Quality</title>
+    <link rel="stylesheet" href="output.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar fixed bg-zinc-600 w-full">
+        <ul class="nav-links flex flex-row gap-8 w-full justify-center">
+            <li><a class="font-logo font-extrabold text-4xl text-gray-400">SWEN422</a></li>
+            <li><a class="text-gray-400" href="#">Home</a></li>
+            <li><a class="text-gray-400" href="#">About us</a></li>
+            <li><div class="relative inline-block text-left text-gray-400" >
+                <div>
+                    <button type="button" class="inline-flex w-full justify-center gap-x-1.5 bg-transparent px-3 py-2 text-sm font-semibold text-gray-400 hover:bg-gray-50" id="menu-button" aria-expanded="true" aria-haspopup="true" >
+                    Visualisations
+                    <svg class="-mr-1 size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                    </svg>
+                    </button>
+                </div>
+
+
+            <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white ring-1 shadow-lg ring-black/5 focus:outline-hidden" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                <div class="py-1" role="none">
+                <!-- Active: "bg-gray-100 text-gray-900 outline-hidden", Not Active: "text-gray-700" -->
+                <a href="/visualisation/mapview.html" class="block px-4 py-2 text-sm text-gray-400" role="menuitem" tabindex="-1" id="menu-item-0">Map View</a>
+                <a href="#" class="block px-4 py-2 text-sm text-gray-400" role="menuitem" tabindex="-1" id="menu-item-1">Visualisation #2</a>
+                <a href="#" class="block px-4 py-2 text-sm text-gray-400" role="menuitem" tabindex="-1" id="menu-item-2">Visualisation #3</a>
+
+                </div>
+            </div>
+            </div></li>
+
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero h-128 pt-128">
+        <div class="hero-text">
+            <h1>Clear Waters? Analyzing New Zealand’s Lake Health</h1>
+            <p>Assessing Biological, Chemical, and Physical Attributes of Lake Health</p>
+            <a href="#" class="btn">Explore ↗</a>
+        </div>
+        <div class="hero-image">
+            <img src="static/assets/nz-map.png" alt="Map of New Zealand">
+        </div>
+    </section>
+</body>
+</html>
