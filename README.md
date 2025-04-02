@@ -30,9 +30,21 @@ git clone https://gitlab.ecs.vuw.ac.nz/course-work/swen422/2025/assignment1/team
 cd water_quality
 ```
 
-### 2. Create virtual environment and install dependencies
+### 2. Create virtual environment
 ```bash
 python -m venv venv
-source venv/bin/activate     
-pip install -r requirements.txt
+source venv/bin/activate
 ```
+
+### 2. Install dependencies
+```bash
+npm install
+```
+
+### 3. Build assets with Webpack
+```bash
+npm run dev
+```
+
+### 5. Open in browser (localhost)
+Go to [http://127.0.0.1:3000](http://127.0.0.1:3000)
