@@ -15,3 +15,13 @@ const removeCanvasWebGLContextLossEventListener = () => {
         canvas.removeEventListener('webglcontextlost');
     }
 }
+
+const visualistationMenuItem = document.getElementById('visualisation');
+const visualisationPopup = document.getElementById('visualisation-popup');
+visualisationPopup.style.display = 'none';
+visualistationMenuItem.addEventListener("mouseover", () => {
+    visualisationPopup.style.display = 'block';
+})
+visualistationMenuItem.addEventListener("mouseleave", () => {
+    visualisationPopup.style.display = 'none';
+})
