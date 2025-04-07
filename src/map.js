@@ -11,6 +11,7 @@ const projection = d3.geoMercator().center([172, -41])      // approx NZ center
 const path = d3.geoPath().projection(projection);
 
 const tooltip = d3.select("#district-tooltip");
+const checkedbox = document.getElementById("toggle-lakes");
 let mouseTrackFunctions = {};
 let mouseX;
 let mouseY;
@@ -25,6 +26,14 @@ document.onmousemove = function (event) {
         }
     }
 }
+
+document.getElementById("toggle-lakes").addEventListener("change", function (event) {
+    if (checkedbox.checked) {
+        mapSvg.selectAll("g").attr("opacity", 1)
+    } else {
+        mapSvg.selectAll("g").attr("opacity", 0)
+    }
+})
 
 function tooltipHover(){
     tooltip.style("left", `${mouseX + 10}px`)
