@@ -11,10 +11,18 @@ const projection = d3.geoMercator().center([172, -41])      // approx NZ center
 const path = d3.geoPath().projection(projection);
 
 const tooltip = d3.select("#district-tooltip");
+const infobox = d3.select("#lake-info")
 const checkedbox = document.getElementById("toggle-lakes");
 let mouseTrackFunctions = {};
 let mouseX;
 let mouseY;
+
+let selectedIndicator = "TP";
+
+document.getElementById("indicator-select").addEventListener("change", function(e) {
+    selectedIndicator = e.target.value;
+    updateLakeLayer();
+});
 
 document.onmousemove = function (event) {
     mouseX = event.pageX;
@@ -39,6 +47,13 @@ function tooltipHover(){
     tooltip.style("left", `${mouseX + 10}px`)
         .style("top", `${mouseY + 10}px`);
 }
+
+function infoboxPoping(){
+    infobox.style("left", `${mouseX + 10}px`)
+    .style("top", `${mouseY + 10}px`);
+}
+
+
 
 d3.json("/static/geojson/nz.geojson").then(data => {
     mapSvg.selectAll("path")
@@ -68,9 +83,24 @@ d3.json("/static/geojson/lakewaterquality.geojson").then(lakedata => {
         .append("path")
         .attr("d", path)
         .attr("fill", "#cce5df")
-        .attr("stroke", "#333");
+        .attr("stroke", "#333")
+        .on("click", function (event, data) {
+            d3.selectAll("path")
+                .attr("fill", "#cce5df")
+                .attr("stroke", "#333");
+            infobox.classed("hidden", false)
+                .html(`<strong>${data.properties.lake_name}<br></strong>
+                        <strong>${data.properties.lake_type}<br></strong>
+                        <strong>${data.properties.region}<br></strong>
+                        <strong>${data.properties.indicator_name}<br></strong>
+                        <strong>${data.properties.value}<br></strong>
+                        <strong>${data.properties.units}<br></strong>`);
+            mouseTrackFunctions["infoboxPoping"] = infoboxPoping;
+            d3.select(this).attr("fill", "#f0f");
+            console.log(data.properties);
+        });
 }).catch(error => {
-    console.error("❌ Error loading NZ geojson:", error);
+    console.error("❌ Error loading lake data geojson:", error);
 });
 
 mapSvg.append("g");
