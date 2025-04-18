@@ -123,7 +123,7 @@ function updateLakeLayer() {
         })
 })}
 
-const zoom = d3.zoom().scaleExtent([1, 4]).on("zoom", zoomed);
+const zoom = d3.zoom().scaleExtent([1, 8]).on("zoom", zoomed);
 
 
 // apply configured zoom behaviour to our svg
@@ -168,8 +168,54 @@ function mapColouring() {
                 return avg !== undefined ? colorScale(avg) : "#ccc"; // gray for missing
             })
 
-        console.log("Color data keys:");
-        console.log(Array.from(regionColorData.keys()));
+        const [min, max] = d3.extent(avgByRegion, d => d[1]);
+        console.log(min);
+        console.log(max);
+
+        // Remove existing legend if any
+        d3.select("#legend svg").remove();
+
+// Create SVG for legend
+        const legendWidth = 200;
+        const legendHeight = 10;
+
+        const legendSvg = d3.select("#legend")
+            .append("svg")
+            .attr("width", legendWidth + 50)
+            .attr("height", 40);
+
+// Create gradient definition
+        const defs = legendSvg.append("defs");
+
+        const linearGradient = defs.append("linearGradient")
+            .attr("id", "legend-gradient");
+
+        linearGradient.selectAll("stop")
+            .data(d3.ticks(0, 1, 10)) // divide gradient into 10 steps
+            .enter().append("stop")
+            .attr("offset", d => `${d * 100}%`)
+            .attr("stop-color", d => colorScale(d3.interpolateNumber(min, max)(d))); // range from min to max
+
+// Background rect with gradient
+        legendSvg.append("rect")
+            .attr("x", 20)
+            .attr("y", 10)
+            .attr("width", legendWidth)
+            .attr("height", legendHeight)
+            .style("fill", "url(#legend-gradient)");
+
+// Legend axis (scale)
+        const legendScale = d3.scaleLinear()
+            .domain([min, max])
+            .range([20, 20 + legendWidth]);
+
+        const legendAxis = d3.axisBottom(legendScale)
+            .ticks(5)
+            .tickFormat(d3.format(".2f"));
+
+        legendSvg.append("g")
+            .attr("transform", `translate(0, ${10 + legendHeight})`)
+            .call(legendAxis);
 })}
 
 drawMapNZ();
