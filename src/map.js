@@ -22,6 +22,10 @@ let selectedIndicator = "TP";
 
 let lakeGroup;
 
+let regionGroup;
+
+let colouringGroup;
+
 document.getElementById("indicator-select").addEventListener("change", function(e) {
     selectedIndicator = e.target.value;
     updateLakeLayer();
@@ -40,9 +44,9 @@ document.onmousemove = function (event) {
 
 document.getElementById("toggle-lakes").addEventListener("change", function (event) {
     if (checkedbox.checked) {
-        mapSvg.selectAll("g").attr("opacity", 1)
+        lakeGroup.selectAll("path").attr("opacity", 1)
     } else {
-        mapSvg.selectAll("g").attr("opacity", 0)
+        lakeGroup.selectAll("path").attr("opacity", 0)
     }
 })
 
@@ -57,9 +61,11 @@ function infoboxPoping(){
 }
 
 
+function drawMapNZ(){
+    d3.json("/static/geojson/nz.geojson").then(data => {
+        regionGroup = mapSvg.append("g").attr("id", "region-layer")
 
-d3.json("/static/geojson/nz.geojson").then(data => {
-    mapSvg.selectAll("path")
+    regionGroup.selectAll("path")
         .data(data.features)
         .enter()
         .append("path")
@@ -76,13 +82,14 @@ d3.json("/static/geojson/nz.geojson").then(data => {
         })
     lakeGroup = mapSvg.append("g").attr("id", "lake-layer");
     updateLakeLayer();
+    colouringGroup = mapSvg.append("g").attr("id", "colour-layer");
+    mapColouring();
     d3.select("#indicator-select").on("change", () => {
         updateLakeLayer(); // redraw with updated indicator
+        mapColouring();
     });
 
-}).catch(error => {
-    console.error("❌ Error loading NZ geojson:", error);
-});
+});}
 
 
 mapSvg.append("g");
@@ -101,9 +108,8 @@ function updateLakeLayer() {
             .attr("fill", "#cce5df")
             .attr("stroke", "#333")
             .on("click", function (event, data) {
-                d3.selectAll("path")
+                lakeGroup.selectAll("path")
                     .attr("fill", "#cce5df")
-                    .attr("stroke", "#333");
                 infobox.classed("hidden", false)
                     .html(`<strong>${data.properties.lake_name}<br></strong>
                             <strong>${data.properties.lake_type}<br></strong>
@@ -128,3 +134,42 @@ function zoomed(event) {
     // apply calculated transform to the image
     mapSvg.attr("transform", transform.toString());
 }
+
+function mapColouring() {
+    colouringGroup.remove();
+
+    colouringGroup = mapSvg.append("g").attr("id", "colour-layer");
+
+
+    d3.json("/static/geojson/lakewaterquality.geojson").then(lakeData => {
+        const filtered = lakeData.features.filter(f => f.properties.indicator === selectedIndicator);
+
+        console.log(filtered);
+
+        const avgByRegion = d3.rollups(
+            filtered,
+            v => d3.mean(v, d => +d.properties.value),
+            d => d.properties.region
+        );
+
+        console.log(avgByRegion);
+
+        const regionColorData = new Map(avgByRegion);
+
+        const colorScale = d3.scaleSequential()
+            .domain(d3.extent(avgByRegion, d => d[1])) // min-max values
+            .interpolator(d3.interpolateYlGnBu); // or interpolateOrRd, interpolateViridis, etc.
+
+
+        regionGroup.selectAll("path")
+            .attr("fill", d => {
+                const regionName = d.properties.name;
+                const avg = regionColorData.get(regionName);
+                return avg !== undefined ? colorScale(avg) : "#ccc"; // gray for missing
+            })
+
+        console.log("Color data keys:");
+        console.log(Array.from(regionColorData.keys()));
+})}
+
+drawMapNZ();
