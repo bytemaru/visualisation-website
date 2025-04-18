@@ -18453,7 +18453,7 @@
       "properties": {
         "source": "https://simplemaps.com", 
         "id": "NZMWT", 
-        "name": "Manawatu-Wanganui"
+        "name": "Manawatu-Whanganui"
       }, 
       "id": 11
     }, 
@@ -24277,7 +24277,7 @@
       "properties": {
         "source": "https://simplemaps.com", 
         "id": "NZHKB", 
-        "name": "Hawke's Bay"
+        "name": "Hawkes Bay"
       }, 
       "id": 16
     }
