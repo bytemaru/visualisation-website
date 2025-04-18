@@ -92,9 +92,13 @@ function drawMapNZ(){
 });}
 
 
-mapSvg.append("g");
-
 function updateLakeLayer() {
+
+    mapSvg.transition().duration(750).call(zoom.transform, d3.zoomIdentity);
+
+    infobox.classed("hidden", false)
+        .html(``);
+
     d3.json("/static/geojson/lakewaterquality.geojson").then(lakedata =>{
         lakeGroup.remove();
         lakeGroup = mapSvg.append("g").attr("id", "lake-layer");
@@ -118,9 +122,18 @@ function updateLakeLayer() {
                             <strong>${data.properties.value}<br></strong>
                             <strong>${data.properties.units}<br></strong>`);
                 mouseTrackFunctions["infoboxPoping"] = infoboxPoping;
-                d3.select(this).attr("fill", "#f0f");
-                console.log(data.properties);
-        })
+                d3.select(this)
+                    .raise()
+                    .transition()
+                    .duration(150)
+                    .attr("fill", "black")
+                    .attr("r", 10)
+                    .transition()
+                    .duration(300)
+                    .attr("r", 5)
+                    .attr("fill", "#f0f")
+        }
+        )
 })}
 
 const zoom = d3.zoom().scaleExtent([1, 8]).on("zoom", zoomed);
@@ -219,3 +232,9 @@ function mapColouring() {
 })}
 
 drawMapNZ();
+
+d3.select("#center-map").on("click", () => {
+    mapSvg.transition()
+        .duration(750)
+        .call(zoom.transform, d3.zoomIdentity);
+});
