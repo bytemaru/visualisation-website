@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About us</title>
-    <link rel="stylesheet" href="output.css">
+    <link rel="stylesheet" href="/dist/output.css">
 </head>
 <body>
 <!-- Navigation Bar -->
@@ -36,7 +36,7 @@
                             role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                         <div class="py-1" role="none">
                             <!-- Active: "bg-gray-100 text-gray-900 outline-hidden", Not Active: "text-gray-700" -->
-                            <a href="/mapview.html" class="block px-4 py-2 text-sm text-slate-50"
+                            <a href="/visualisation/mapview.html" class="block px-4 py-2 text-sm text-slate-50"
                                role="menuitem" tabindex="-1" id="menu-item-0">Map View</a>
                             <a href="#" class="block px-4 py-2 text-sm text-slate-50" role="menuitem" tabindex="-1"
                                id="menu-item-1">Visualisation #2</a>
@@ -58,10 +58,24 @@
     </div>
 </div>
 <div class="grid grid-cols-2 gap-4">
-    <div class="flex">01</div>
+    <section id="about-image" class="bg-white py-30 px-6 lg:px-20">
+        <div class="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-10">
+
+            <!-- 📷 Image block -->
+            <div class="flex-shrink-0 w-full lg:w-1/3 text-center">
+                <img src="static/images/IMG_1003.jpg" alt="Portrait" class="rounded-xl shadow-md w-48 h-48 object-cover mx-auto">
+            </div>
+            <div class="flex-shrink-0 w-full lg:w-1/3 text-center">
+                <img src="static/images/IMG_2715.JPG" alt="Portrait" class="rounded-xl shadow-md w-48 h-48 object-cover mx-auto">
+            </div>
+            <div class="flex-shrink-0 w-full lg:w-1/3 text-center">
+                <img src="static/images/IMG_2995.jpg" alt="Portrait" class="rounded-xl shadow-md w-48 h-48 object-cover mx-auto">
+            </div>
+        </div>
+    </section>
     <section id="about" class="bg-white py-20 px-6 lg:px-20">
         <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-4xl font-bold text-gray-900 mb-6">About Me</h2>
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">About Mariia Fedorova</h2>
             <p class="text-lg text-gray-700 leading-relaxed">
                 I'm a student at Victoria University of Wellington currently studying Human-Computer Interaction.
                 Passionate about data, design, and meaningful visual storytelling, I use tools like D3.js, Tailwind CSS, and Webpack
@@ -71,7 +85,7 @@
                 In this project, I focus on visualizing New Zealand's lake water quality to help users understand environmental patterns through clear and interactive dashboards.
             </p>
             <div class="mt-8">
-                <a href="mailto:youremail@example.com" class="border-2 border-solid border-zinc-950 drop-shadow-[0_35px_35px_rgba(0,0,0,0.25)] px-3.5 py-2.5 text-sm font-semibold text-zinc-950 shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                <a href="mailto:mdpogorelova@gmail.com" class="border-2 border-solid border-zinc-950 drop-shadow-[0_35px_35px_rgba(0,0,0,0.25)] px-3.5 py-2.5 text-sm font-semibold text-zinc-950 shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                     Get in touch
                 </a>
             </div>
@@ -84,6 +98,6 @@
          style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
     </div>
 </div>
-<script src="bundle.js"></script>
+<script src="/dist/index.js"></script>
 </body>
 </html>

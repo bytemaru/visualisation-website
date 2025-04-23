@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NZ Lake Water Quality Map</title>
+    <link rel="stylesheet" href="/dist/output.css">
+</head>
+<body>
+<!-- Navigation Bar -->
+<nav class="navbar fixed bg-zinc-950 w-full z-30">
+    <ul class="nav-links flex items-center flex-row gap-8 w-full justify-center">
+        <li><a href="https://www.wgtn.ac.nz/courses/swen/422/2025/offering?crn=18662" class="font-logo font-extrabold text-4xl text-slate-50 hover:bg-fuchsia-300">SWEN422</a></li>
+        <li><a href="../index.html" class="px-3 py-2 text-sm font-semibold text-slate-50 hover:bg-fuchsia-300" href="#">Home</a></li>
+        <li><a href="../about-us.html" class="px-3 py-2 text-sm font-semibold text-slate-50 hover:bg-fuchsia-300" href="#">About us</a></li>
+        <li>
+            <div id="visualisation" class="relative inline-block text-left text-slate-50">
+                <div>
+                    <button type="button"
+                            class="inline-flex w-full justify-center gap-x-1.5 bg-transparent px-3 py-2 text-sm font-semibold text-slate-50 hover:bg-fuchsia-300"
+                            id="menu-button" aria-expanded="true" aria-haspopup="true">
+                        Visualisations
+                        <svg class="-mr-1 size-5 text-slate-50" viewBox="0 0 20 20" fill="currentColor"
+                             aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd"
+                                  d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                    </button>
+                </div>
+
+
+                <div id="visualisation-popup" class="pt-2 origin-top-right absolute right-0 z-10">
+                    <div
+                            class="w-56 rounded-md bg-fuchsia-300 ring-1 shadow-lg ring-black/5 focus:outline-hidden"
+                            role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                        <div class="py-1" role="none">
+                            <!-- Active: "bg-gray-100 text-gray-900 outline-hidden", Not Active: "text-gray-700" -->
+                            <a href="/visualisation/mapview.html" class="block px-4 py-2 text-sm text-slate-50"
+                               role="menuitem" tabindex="-1" id="menu-item-0">Map View</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-slate-50" role="menuitem" tabindex="-1"
+                               id="menu-item-1">Visualisation #2</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-slate-50" role="menuitem" tabindex="-1"
+                               id="menu-item-2">Visualisation #3</a>
+
+                        </div>
+                    </div></div>
+            </div>
+        </li>
+
+    </ul>
+</nav>
+<div class="pt-20 px-6">
+
+    <!-- Map and Info section -->
+    <div class="flex flex-col lg:flex-row gap-4">
+        <div id="map" class="w-full lg:w-3/4 h-[600px]"></div>
+        <div id="district-tooltip" class="absolute bg-white rounded py-2 px-4 hidden"></div>
+        <div class="mb-4 w-full lg:w-1/4 z-10">
+            <label class="inline-flex items-center space-x-2">
+                <input type="checkbox" id="toggle-lakes" checked class="accent-blue-600">
+                <span class="text-sm font-medium">Show Lakes</span>
+            </label>
+
+            <div id="lake-info" class="pt-4 bg-white p-4 rounded shadow">
+                <label for="indicator-select" class="block text-sm font-medium text-gray-700">Choose indicator:</label>
+                <select id="indicator-select" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                    <option value="TP">Total phosphorus</option>
+                    <option value="CHLA">Chlorophyll-a</option>
+                    <option value="TN">Total nitrogen</option>
+                    <option value="NO3N">Nitrate-nitrogen</option>
+                    <option value="NH4N">Ammoniacal nitrogen</option>
+                    <option value="TLI3">Trophic level index 3</option>
+                    <option value="ECOLI">E. coli</option>
+                    <option value="CLAR">Clarity</option>
+                </select>
+                <div id="legend" class="pt-4">
+                </div>
+                <div id="lake-info-popup" class="pt-4"></div>
+            </div>
+            <button id="center-map" class="pt-4 flex items-center justify-center">
+                <a class=" border-2 border-solid border-zinc-950 drop-shadow-[0_35px_35px_rgba(0,0,0,0.25)] px-3.5 py-2.5 text-sm font-semibold text-zinc-950 shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                    Center Map</a></button>
+        </div>
+    </div>
+</div>
+<script src="/dist/index.js"></script>
+<script src="/dist/map.js"></script>
+</body>
+</html>
