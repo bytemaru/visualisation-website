@@ -10,7 +10,9 @@
     "@fontsource-variable/source-code-pro": "^5.2.5",
     "@tailwindcss/cli": "^4.0.15",
     "d3": "^7.9.0",
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.9",
+    "topojson-client": "^3.1.0",
+    "topojson-server": "^3.0.1"
   },
   "devDependencies": {
     "concurrently": "^9.1.2",
