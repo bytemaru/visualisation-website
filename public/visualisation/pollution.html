@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Top 10 Lakes by Pollution Level (Select Indicator)</title>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/dist/output.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+        }
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+        }
+        .tooltip {
+            position: absolute;
+            background: white;
+            border: 1px solid #ccc;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 12px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+    </style>
+</head>
+
+<body>
+<!-- Navigation Bar -->
+<nav class="navbar fixed bg-zinc-950 w-full z-30">
+    <ul class="nav-links flex items-center flex-row gap-8 w-full justify-center">
+        <li><a href="https://www.wgtn.ac.nz/courses/swen/422/2025/offering?crn=18662" class="font-logo font-extrabold text-4xl text-white hover:bg-fuchsia-300">SWEN422</a></li>
+        <li><a href="../index.html" class="px-3 py-2 text-sm font-semibold text-white hover:bg-fuchsia-300" href="#">Home</a></li>
+        <li><a href="../about-us.html" class="px-3 py-2 text-sm font-semibold text-white hover:bg-fuchsia-300" href="#">About us</a></li>
+        <li>
+            <div id="visualisation" class="relative inline-block text-left text-white">
+                <div>
+                    <button type="button"
+                            class="inline-flex w-full justify-center gap-x-1.5 bg-transparent px-3 py-2 text-sm font-semibold text-slate-50 hover:bg-fuchsia-300"
+                            id="menu-button" aria-expanded="true" aria-haspopup="true">
+                        Visualisations
+                        <svg class="-mr-1 size-5 text-slate-50" viewBox="0 0 20 20" fill="currentColor"
+                             aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd"
+                                  d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                    </button>
+                </div>
+
+
+                <div id="visualisation-popup" class="pt-2 origin-top-right absolute right-0 z-10">
+                    <div
+                            class="w-56 rounded-md bg-fuchsia-300 ring-1 shadow-lg ring-black/5 focus:outline-hidden"
+                            role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                        <div class="py-1" role="none">
+                            <!-- Active: "bg-gray-100 text-gray-900 outline-hidden", Not Active: "text-gray-700" -->
+                            <a href="/visualisation/mapview.html" class="block px-4 py-2 text-sm text-slate-50"
+                               role="menuitem" tabindex="-1" id="menu-item-0">Map View</a>
+                            <a href="/visualisation/pollution.html" class="block px-4 py-2 text-sm text-slate-50" role="menuitem" tabindex="-1"
+                               id="menu-item-1">Pollution Level</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-slate-50" role="menuitem" tabindex="-1"
+                               id="menu-item-2">Visualisation #3</a>
+
+                        </div>
+                    </div></div>
+            </div>
+        </li>
+
+    </ul>
+</nav>
+
+<h1 id="main-heading" class="mb-6 pt-20 px-6 text-center">Top 10 Lakes by Pollution Level (Select Indicator)</h1>
+
+<div class="flex justify-center gap-4 mb-6">
+    <div>
+        <label for="indicator-select" class="block mb-1 font-semibold">Select Indicator</label>
+        <select id="indicator-select" class="p-2 border rounded"></select>
+    </div>
+</div>
+
+<div id="polluted-chart" class="flex justify-center mb-8"></div>
+<div id="gradient-legend" class="flex justify-center mt-4"></div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script src="/dist/index.js"></script>
+<script src="/dist/pollution.js"></script>
+
+
+</body>
+</html>

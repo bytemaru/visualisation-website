@@ -3,7 +3,8 @@ const path = require('path');
 module.exports = {
   entry: {
     index: './src/index.js',
-    map: './src/map.js'
+    map: './src/map.js',
+    pollution: './src/pollution.js',
   },
   output: {
     filename: '[name].js',

@@ -1,4 +1,4 @@
-d3.csv("data/lake-water-quality-state-2016-2020.csv").then(data => {
+d3.csv("/data/lake-water-quality-state-2016-2020.csv").then(data => {
     const indicators = Array.from(new Set(data.map(d => d.indicator_name))).sort();
     const indicatorSelect = d3.select("#indicator-select");
 
