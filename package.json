@@ -2,8 +2,8 @@
   "scripts": {
     "dev": "concurrently \"npm run watch-css\" \"npm run start-server\" \"npm run watch-webpack\"\n",
     "start-server": "nodemon server.js\n",
-    "build:css": "npx @tailwindcss/cli -i ./src/input.css -o ./dist/output.css\n",
-    "watch-css": "npx @tailwindcss/cli -i ./src/input.css -o ./dist/output.css --watch\n",
+    "build:css": "npx @tailwindcss/cli -i public/src/input.css -o ./dist/output.css\\n",
+    "watch-css": "npx @tailwindcss/cli -i public/src/input.css -o ./dist/output.css --watch\\n",
     "watch-webpack": "webpack --watch"
   },
   "dependencies": {

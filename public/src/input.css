@@ -1,0 +1,6 @@
+@import "../../node_modules/tailwindcss";
+@import "../../node_modules/@fontsource-variable/source-code-pro";
+
+@theme {
+  --font-logo: 'Source Code Pro Variable', monospace;
+}
